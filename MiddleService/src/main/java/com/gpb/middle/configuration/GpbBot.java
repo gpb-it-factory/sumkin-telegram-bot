@@ -43,20 +43,9 @@ public class GpbBot implements SpringLongPollingBot, LongPollingSingleThreadUpda
         if (update.hasMessage() && update.getMessage().hasText()) {
             String message_text = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
-            switchService(message_text, chatId);
+            commandsService.switchService(message_text, chatId);
         }
     }
-
-    private void switchService(String message_text, long chatId) {
-        if (message_text.startsWith("/")) {
-            switch (message_text) {
-                case PING -> commandsService.sendReply(chatId, "pong");
-                default -> commandsService.sendReply(chatId,
-                        "Мне пока что нечего на это ответить");
-            }
-        }
-    }
-
 
     @AfterBotRegistration
     public void afterRegistration(BotSession botSession) {

@@ -13,10 +13,22 @@ import org.telegram.telegrambots.meta.generics.TelegramClient;
 @Slf4j
 @PropertySource("classpath:secret.keys")
 public class CommandsService {
+
+    private static final String PING = "/ping";
     private final TelegramClient telegramClient;
 
     public CommandsService(@Value("${token}") String token)  {
         this.telegramClient = new OkHttpTelegramClient(token);
+    }
+
+    public void switchService(String message_text, long chatId) {
+        if (message_text.startsWith("/")) {
+            switch (message_text) {
+                case PING -> sendReply(chatId, "pong");
+                default -> sendReply(chatId,
+                        "Мне пока что нечего на это ответить");
+            }
+        }
     }
 
     public void sendReply(long chatId, String message_text) {
