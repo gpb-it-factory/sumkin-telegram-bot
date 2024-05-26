@@ -1,10 +1,10 @@
-package com.gpb.middle;
+package com.gpb.sumkintelegrambot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MiddleServiceApplicationTests {
+class SumkinTelegramBotApplicationTests {
 
     @Test
     void contextLoads() {
