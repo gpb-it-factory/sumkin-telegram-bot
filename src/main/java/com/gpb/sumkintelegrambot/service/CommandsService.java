@@ -40,7 +40,7 @@ public class CommandsService {
                 case REGISTER -> {
                     ResponseEntity<UUID> response = middleServiceClient.registerUser(chatId);
                     if (response.getStatusCode().is2xxSuccessful()) {
-                        sendReply(chatId, "ваш id: " + response.getBody());
+                        sendReply(chatId, "Регистрация прошла успешно. Ваш id: " + response.getBody());
                     } else if (response.getStatusCode().is4xxClientError()) {
                         sendReply(chatId, "Вы уже зарегистрированы");
                     } else {
