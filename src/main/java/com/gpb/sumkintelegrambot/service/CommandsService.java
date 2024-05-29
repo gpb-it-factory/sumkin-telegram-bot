@@ -41,6 +41,8 @@ public class CommandsService {
                     ResponseEntity<UUID> response = middleServiceClient.registerUser(chatId);
                     if (response.getStatusCode().is2xxSuccessful()) {
                         sendReply(chatId, "ваш id: " + response.getBody());
+                    } else if (response.getStatusCode().is4xxClientError()) {
+                        sendReply(chatId, "Вы уже зарегистрированы");
                     } else {
                         sendReply(chatId, "Произошло что-то ужасное, но станет лучше, честно");
                     }
