@@ -1,9 +1,8 @@
-package com.gpb.middle.configuration;
+package com.gpb.sumkintelegrambot.configuration;
 
-import com.gpb.middle.service.CommandsService;
+import com.gpb.sumkintelegrambot.service.CommandsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.longpolling.BotSession;
 import org.telegram.telegrambots.longpolling.interfaces.LongPollingUpdateConsumer;
@@ -15,7 +14,6 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Service
 @Slf4j
-@PropertySource("classpath:secret.keys")
 public class GpbBot implements SpringLongPollingBot, LongPollingSingleThreadUpdateConsumer {
 
     private static final String PING = "/ping";
@@ -23,7 +21,7 @@ public class GpbBot implements SpringLongPollingBot, LongPollingSingleThreadUpda
     private final String token;
     private final CommandsService commandsService;
 
-    public GpbBot(@Value("${token}") String token, CommandsService commandsService) {
+    public GpbBot(@Value("#{environment.GPB_BOT_TOKEN_SUMKIN}") String token, CommandsService commandsService) {
         this.token = token;
         this.commandsService = commandsService;
     }

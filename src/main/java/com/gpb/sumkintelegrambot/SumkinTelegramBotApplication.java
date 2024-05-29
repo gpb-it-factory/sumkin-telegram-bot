@@ -1,13 +1,12 @@
-package com.gpb.middle;
-
+package com.gpb.sumkintelegrambot;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MiddleServiceApplication {
+public class SumkinTelegramBotApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MiddleServiceApplication.class, args);
+        SpringApplication.run(SumkinTelegramBotApplication.class, args);
     }
 
 }

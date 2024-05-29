@@ -46,13 +46,23 @@ java --version
 ```
 2. Клонируйте проект по ссылке https://github.com/gpb-it-factory/sumkin-telegram-bot.git
 
-3. В папке GbpBot\MiddleService\src\main\resources создайте файл secret.keys и  разместите
-токен бота в формате "token: yourToken". Он будет использован в проекте.
+3. Установите переменную среды, выполнив команды: 
 
-4. В терминале перейдите в папку MiddleService: cd MiddleService
-5. Запустите build проекта: build gradle 
-6. После успешного build перейдите в папку libs: cd build/libs
-7. Запустите jar файл проекта: java -jar MiddleService-0.0.1-SNAPSHOT.jar
+```ls~```
+
+```nano ~/.bashrc```
+
+В конце файла допишите (вместо *** укажите ваш токен для бота): 
+
+```export GPB_BOT_TOKEN_SUMKIN="***"```
+
+Нажать ctrl+x затем y и enter. После выполнить:
+
+```source ~/.bashrc```
+
+5. Запустите build проекта: ```build gradle``` 
+6. После успешного build перейдите в папку libs: ```cd build/libs```
+7. Запустите jar файл проекта: ```java -jar sumkin-telegram-bot-0.0.1-SNAPSHOT-plain.jar```
 
 
 ### <a id="features">Возможности приложения</a>
