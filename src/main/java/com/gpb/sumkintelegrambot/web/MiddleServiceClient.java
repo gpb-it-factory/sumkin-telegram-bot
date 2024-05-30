@@ -8,6 +8,6 @@ import java.util.UUID;
 
 @FeignClient(name = "middleServiceClient", url = "http://" + "${myMiddle.host}:${myMiddle.port}")
 public interface MiddleServiceClient {
-    @PostMapping("/users")
+    @PostMapping("${myMiddle.commands.registration}")
     ResponseEntity<UUID> registerUser(long chatId);
 }

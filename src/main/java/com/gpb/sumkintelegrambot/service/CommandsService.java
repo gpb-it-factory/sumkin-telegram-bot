@@ -10,9 +10,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.generics.TelegramClient;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.http.HttpRequest;
 import java.util.UUID;
 
 
@@ -38,18 +35,22 @@ public class CommandsService {
             switch (message_text) {
                 case PING -> sendReply(chatId, "pong");
                 case REGISTER -> {
-                    ResponseEntity<UUID> response = middleServiceClient.registerUser(chatId);
-                    if (response.getStatusCode().is2xxSuccessful()) {
-                        sendReply(chatId, "Регистрация прошла успешно. Ваш id: " + response.getBody());
-                    } else if (response.getStatusCode().is4xxClientError()) {
-                        sendReply(chatId, "Вы уже зарегистрированы");
-                    } else {
-                        sendReply(chatId, "Произошло что-то ужасное, но станет лучше, честно");
-                    }
+                    registerUser(chatId);
                 }
                 default -> sendReply(chatId,
                         "Мне пока что нечего на это ответить");
             }
+        }
+    }
+
+    private void registerUser(long chatId) {
+        ResponseEntity<UUID> response = middleServiceClient.registerUser(chatId);
+        if (response.getStatusCode().is2xxSuccessful()) {
+            sendReply(chatId, "Регистрация прошла успешно. Ваш id: " + response.getBody());
+        } else if (response.getStatusCode().is4xxClientError()) {
+            sendReply(chatId, "Вы уже зарегистрированы");
+        } else {
+            sendReply(chatId, "Произошло что-то ужасное, но станет лучше, честно");
         }
     }
 
