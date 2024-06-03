@@ -2,9 +2,9 @@ spring:
   application:
     name: front-service
 myMiddle:
-  host: localhost
+  host: http://localhost
   port: 8082
-  commands:
-    registration: /users
 server:
   port: 8081
+bot:
+  token: ${GPB_BOT_TOKEN_SUMKIN}

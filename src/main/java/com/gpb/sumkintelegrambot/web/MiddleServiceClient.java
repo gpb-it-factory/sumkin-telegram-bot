@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.UUID;
 
-@FeignClient(name = "middleServiceClient", url = "http://" + "${myMiddle.host}:${myMiddle.port}")
+@FeignClient(name = "middleServiceClient", url = "${myMiddle.host}:${myMiddle.port}")
 public interface MiddleServiceClient {
-    @PostMapping("${myMiddle.commands.registration}")
+    @PostMapping("/users")
     ResponseEntity<UUID> registerUser(long chatId);
 }

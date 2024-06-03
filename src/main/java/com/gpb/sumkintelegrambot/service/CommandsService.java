@@ -25,7 +25,7 @@ public class CommandsService {
 
     private MiddleServiceClient middleServiceClient;
 
-    public CommandsService(@Value("#{environment.GPB_BOT_TOKEN_SUMKIN}") String token) {
+    public CommandsService(@Value("${bot.token}") String token) {
 
         this.telegramClient = new OkHttpTelegramClient(token);
     }
