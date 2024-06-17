@@ -31,8 +31,8 @@ public class MessageHandler {
     }
 
     private SendMessage processCommand(Update update) {
-        String message = update.getMessage().getText().toLowerCase();
-        ICommand command = commands.get(message);
+        String[] message = update.getMessage().getText().split(" ");
+        ICommand command = commands.get(message[0].toLowerCase());
         if (command == null) {
             return notFoundCommand(update);
         }
