@@ -17,6 +17,8 @@ public class TransferCommand implements ICommand {
 
     private final MiddleServiceClient middleServiceClient;
 
+    private BigDecimal amountBigDecimal;
+
     public TransferCommand(MiddleServiceClient middleServiceClient) {
         this.middleServiceClient = middleServiceClient;
     }
@@ -46,7 +48,11 @@ public class TransferCommand implements ICommand {
         String text = update.getMessage().getText();
         String from = update.getMessage().getChat().getUserName();
         String amount = text.substring(0, text.indexOf(" "));
-        BigDecimal amountBigDecimal = new BigDecimal(amount);
+        try {
+            amountBigDecimal = new BigDecimal(amount);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
         String to = text.substring(text.indexOf(" ") + 1);
         return new TransferDto(from, to, amountBigDecimal);
     }
