@@ -335,6 +335,7 @@ components:
       required:
         - userId
         - userName
+
     UserResponse:
       type: object
       description: Информация о пользователе

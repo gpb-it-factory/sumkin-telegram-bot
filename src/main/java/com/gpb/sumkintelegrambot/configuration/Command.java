@@ -8,7 +8,6 @@ public enum Command {
     REGACCOUNT("/regaccount", "регистрация счета, формат: /regaccount название счета"),
     TRANSFER("/transfer", "перевод средств, формат: /transfer получатель сумма");
 
-
     public final String name;
     public final String description;
 
