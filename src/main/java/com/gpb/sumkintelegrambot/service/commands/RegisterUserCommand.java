@@ -3,6 +3,7 @@ package com.gpb.sumkintelegrambot.service.commands;
 import com.gpb.sumkintelegrambot.configuration.Command;
 import com.gpb.sumkintelegrambot.service.ICommand;
 import com.gpb.sumkintelegrambot.web.MiddleServiceClient;
+import com.gpb.sumkintelegrambot.web.dto.RegistrationDto;
 import com.gpb.sumkintelegrambot.web.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Component
@@ -25,7 +27,7 @@ public class RegisterUserCommand implements ICommand {
         long chatId = update.getMessage().getChatId();
         String tgUsername = update.getMessage().getChat().getUserName();
         try {
-            ResponseEntity<UUID> response = middleServiceClient.registerUser(
+            ResponseEntity<RegistrationDto> response = middleServiceClient.registerUser(
                     new UserDto(chatId, tgUsername));
             String responseText = getResponseText(response);
             return SendMessage.builder()
@@ -40,10 +42,10 @@ public class RegisterUserCommand implements ICommand {
         }
     }
 
-    private String getResponseText(ResponseEntity<UUID> response) {
+    private String getResponseText(ResponseEntity<RegistrationDto> response) {
         int statusCode = response.getStatusCode().value();
         return switch (statusCode) {
-            case 201 -> "Регистрация прошла успешно. Ваш id: " + response.getBody();
+            case 201 -> "Регистрация прошла успешно. Ваш id: " + response.getBody().getId();
             case 409 -> "Вы уже зарегистрированы";
             default -> "Незадокументированный код ответа";
         };
