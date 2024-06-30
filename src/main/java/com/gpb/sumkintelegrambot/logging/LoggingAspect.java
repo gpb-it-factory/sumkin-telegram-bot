@@ -35,7 +35,7 @@ public class LoggingAspect {
             log.info("Отправил сообщение \"{}\" получателю {}", sendMessage.getText(),
                     sendMessage.getChatId());
         } catch (Throwable e) {
-            log.info("Ошибка логгирования в аспекте");
+            log.info("Ошибка логирования в аспекте");
         }
         return sendMessage;
     }
