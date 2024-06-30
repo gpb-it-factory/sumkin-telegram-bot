@@ -3,7 +3,7 @@ package com.gpb.sumkintelegrambot.service.commands;
 import com.gpb.sumkintelegrambot.configuration.Command;
 import com.gpb.sumkintelegrambot.service.ICommand;
 import com.gpb.sumkintelegrambot.web.MiddleServiceClient;
-import com.gpb.sumkintelegrambot.web.dto.TransferDto;
+import com.gpb.sumkintelegrambot.web.dto.RegisterTransferDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -27,10 +27,10 @@ public class TransferCommand implements ICommand {
     public SendMessage getResponseMessage(Update update) {
         long chatId = update.getMessage().getChatId();
         String tgUsername = update.getMessage().getChat().getUserName();
-        TransferDto transferDto = getTransferDto(update);
+        RegisterTransferDto registerTransferDto = getTransferDto(update);
         try {
             ResponseEntity<UUID> response = middleServiceClient.registerTransfer(
-                    transferDto);
+                    registerTransferDto);
             String responseText = getResponseText(response);
             return SendMessage.builder()
                     .chatId(chatId)
@@ -44,7 +44,7 @@ public class TransferCommand implements ICommand {
         }
     }
 
-    private TransferDto getTransferDto(Update update) {
+    private RegisterTransferDto getTransferDto(Update update) {
         String text = update.getMessage().getText();
         String from = update.getMessage().getChat().getUserName();
         String amount = text.substring(0, text.indexOf(" "));
@@ -54,7 +54,7 @@ public class TransferCommand implements ICommand {
             System.out.println("Error: " + e.getMessage());
         }
         String to = text.substring(text.indexOf(" ") + 1);
-        return new TransferDto(from, to, amountBigDecimal);
+        return new RegisterTransferDto(from, to, amountBigDecimal);
     }
 
     private String getResponseText(ResponseEntity<UUID> response) {

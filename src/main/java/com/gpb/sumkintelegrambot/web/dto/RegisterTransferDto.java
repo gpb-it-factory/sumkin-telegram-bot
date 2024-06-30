@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Getter
 @Setter
-public class TransferDto {
+public class RegisterTransferDto {
 
     private final String from;
     private final String to;

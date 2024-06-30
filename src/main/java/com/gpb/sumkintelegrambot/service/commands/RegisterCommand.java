@@ -3,7 +3,7 @@ package com.gpb.sumkintelegrambot.service.commands;
 import com.gpb.sumkintelegrambot.configuration.Command;
 import com.gpb.sumkintelegrambot.service.ICommand;
 import com.gpb.sumkintelegrambot.web.MiddleServiceClient;
-import com.gpb.sumkintelegrambot.web.dto.RegistrationDto;
+import com.gpb.sumkintelegrambot.web.dto.getUserDto;
 import com.gpb.sumkintelegrambot.web.dto.UserDto;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class RegisterCommand implements ICommand {
         long chatId = update.getMessage().getChatId();
         UserDto myUser = new UserDto(chatId, update.getMessage().getChat().getUserName());
         try {
-            ResponseEntity<RegistrationDto> response = middleServiceClient.registerUser(myUser);
+            ResponseEntity<getUserDto> response = middleServiceClient.registerUser(myUser);
             String responseText = getResponseText(response);
             return SendMessage.builder()
                     .chatId(chatId)
@@ -39,7 +39,7 @@ public class RegisterCommand implements ICommand {
         }
     }
 
-    private String getResponseText(ResponseEntity<RegistrationDto> response) {
+    private String getResponseText(ResponseEntity<getUserDto> response) {
         int statusCode = response.getStatusCode().value();
         if (statusCode == 204) {
             return "Регистрация прошла успешно. Ваш id: " + response.getBody();

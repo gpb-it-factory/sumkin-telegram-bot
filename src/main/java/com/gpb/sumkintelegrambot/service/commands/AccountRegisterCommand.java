@@ -3,12 +3,11 @@ package com.gpb.sumkintelegrambot.service.commands;
 import com.gpb.sumkintelegrambot.configuration.Command;
 import com.gpb.sumkintelegrambot.service.ICommand;
 import com.gpb.sumkintelegrambot.web.MiddleServiceClient;
+import com.gpb.sumkintelegrambot.web.dto.AccountDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-
-import java.util.UUID;
 
 @Component
 public class AccountRegisterCommand implements ICommand {
@@ -24,7 +23,7 @@ public class AccountRegisterCommand implements ICommand {
         long chatId = update.getMessage().getChatId();
         String accountName = getAccountName(update);
         try {
-            ResponseEntity<UUID> response = middleServiceClient.registerAccount(
+            ResponseEntity<AccountDto> response = middleServiceClient.registerAccount(
                     chatId, accountName);
             String responseText = getResponseText(response);
             return SendMessage.builder()
@@ -44,10 +43,10 @@ public class AccountRegisterCommand implements ICommand {
         return text.substring(text.indexOf(" ") + 1);
     }
 
-    private String getResponseText(ResponseEntity<UUID> response) {
+    private String getResponseText(ResponseEntity<AccountDto> response) {
         int statusCode = response.getStatusCode().value();
         return switch (statusCode) {
-            case 204 -> "Счет успешно создан. Ваш счет: " + response.getBody();
+            case 204 -> "Счет успешно создан. Ваш счет: " + response.getBody().getAccountId();
             case 409 -> "Такой счет у данного пользователя уже есть";
             default -> "Незадокументированный код ответа";
         };
