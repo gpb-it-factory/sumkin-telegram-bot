@@ -3,7 +3,7 @@ package com.gpb.sumkintelegrambot.web;
 import com.gpb.sumkintelegrambot.web.dto.AccountDto;
 import com.gpb.sumkintelegrambot.web.dto.getUserDto;
 import com.gpb.sumkintelegrambot.web.dto.RegisterTransferDto;
-import com.gpb.sumkintelegrambot.web.dto.UserDto;
+import com.gpb.sumkintelegrambot.web.dto.RegisterUserDto;
 import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -19,7 +19,7 @@ import java.util.UUID;
 @FeignClient(name = "middleServiceClient", url = "${myMiddle.url}")
 public interface MiddleServiceClient {
     @PostMapping(value = "/v2/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<getUserDto> registerUser(@Valid @RequestBody UserDto userDto);
+    ResponseEntity<getUserDto> registerUser(@Valid @RequestBody RegisterUserDto registerUserDto);
 
     @GetMapping("/v2/users/{id}")
     ResponseEntity<getUserDto> getUserById(@PathVariable Long id);

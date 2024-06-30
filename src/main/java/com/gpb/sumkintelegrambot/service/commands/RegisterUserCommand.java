@@ -4,7 +4,7 @@ import com.gpb.sumkintelegrambot.configuration.Command;
 import com.gpb.sumkintelegrambot.service.ICommand;
 import com.gpb.sumkintelegrambot.web.MiddleServiceClient;
 import com.gpb.sumkintelegrambot.web.dto.getUserDto;
-import com.gpb.sumkintelegrambot.web.dto.UserDto;
+import com.gpb.sumkintelegrambot.web.dto.RegisterUserDto;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class RegisterUserCommand implements ICommand {
         String tgUsername = update.getMessage().getChat().getUserName();
         try {
             ResponseEntity<getUserDto> response = middleServiceClient.registerUser(
-                    new UserDto(chatId, tgUsername));
+                    new RegisterUserDto(chatId, tgUsername));
             String responseText = getResponseText(response);
             return SendMessage.builder()
                     .chatId(chatId)
