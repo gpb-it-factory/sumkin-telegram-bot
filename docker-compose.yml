@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  app:
+    build:
+      dockerfile: Dockerfile
+    container_name: 'tgbotfront'
+    environment:
+      GPB_BOT_TOKEN_SUMKIN: ${GPB_BOT_TOKEN_SUMKIN}
