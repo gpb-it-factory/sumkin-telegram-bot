@@ -45,10 +45,11 @@ public class AccountRegisterCommand implements ICommand {
 
     private String getResponseText(ResponseEntity<AccountDto> response) {
         int statusCode = response.getStatusCode().value();
+        AccountDto body = response.getBody();
         return switch (statusCode) {
-            case 204 -> "Счет успешно создан. Ваш счет: " + response.getBody().getAccountId();
+            case 201 -> "Счет успешно создан. Ваш счет: " + (body != null ? body.getAccountId() : "Unknown");
             case 409 -> "Такой счет у данного пользователя уже есть";
-            default -> "Незадокументированный код ответа";
+            default -> "Незадокументированный код ответа" + statusCode;
         };
     }
 

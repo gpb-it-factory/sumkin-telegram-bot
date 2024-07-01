@@ -2,14 +2,18 @@ package com.gpb.sumkintelegrambot.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.UUID;
 
 
 @Setter
 @Getter
 @AllArgsConstructor
-public class getUserDto {
+@NoArgsConstructor
+public class GetUserDto {
 
-    private Long id;
+    private UUID id;
 
 }
