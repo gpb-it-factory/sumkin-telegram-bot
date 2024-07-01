@@ -1,20 +1,19 @@
 package com.gpb.sumkintelegrambot.web.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-import java.util.UUID;
-
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-public class AccountDto {
+public class RegAccountDto {
 
-    private UUID id;
+    @NotNull
+    @NotBlank
     private String accountName;
-    private BigDecimal amount;
 }

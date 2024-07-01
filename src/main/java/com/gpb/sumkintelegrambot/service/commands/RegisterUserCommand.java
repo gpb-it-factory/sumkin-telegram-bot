@@ -47,7 +47,8 @@ public class RegisterUserCommand implements ICommand {
     private static MyErrorDto getMyErrorDto(FeignException e) {
         try {
             ByteBuffer feignResponseBody = e.responseBody()
-                    .orElseThrow(() -> new RuntimeException("Response body is null"));            byte[] responseBodyBytes = new byte[feignResponseBody.remaining()];
+                    .orElseThrow(() -> new RuntimeException("Response body is null"));
+            byte[] responseBodyBytes = new byte[feignResponseBody.remaining()];
             feignResponseBody.get(responseBodyBytes);
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readValue(responseBodyBytes, MyErrorDto.class);
