@@ -9,11 +9,13 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
 public class PingCommand implements ICommand {
+
     @Override
     public SendMessage getResponseMessage(Update update) {
+        long chatId = update.getMessage().getChatId();
         return SendMessage
                 .builder()
-                .chatId(update.getMessage().getChatId())
+                .chatId(chatId)
                 .text("pong")
                 .build();
     }

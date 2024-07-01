@@ -53,11 +53,9 @@ public class GpbBot implements SpringLongPollingBot, LongPollingSingleThreadUpda
             long chatId = update.getMessage().getChatId();
             try {
                 Message message = telegramClient.execute(messageHandler.createResponse(update));
-                log.info("Отправил сообщение \"{}\" получателю {}", message.getText(), chatId);
             } catch (TelegramApiException e) {
                 log.error("Ошибка отправки сообщения \"{}\" получателю {}", message_text, chatId);
             }
         }
     }
 }
-
