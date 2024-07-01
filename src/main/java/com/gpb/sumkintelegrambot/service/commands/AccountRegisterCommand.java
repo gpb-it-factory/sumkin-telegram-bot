@@ -48,47 +48,47 @@ public class AccountRegisterCommand implements ICommand {
         }
     }
 
-        private static MyErrorDto getMyErrorDto (FeignException e){
-            try {
-                ByteBuffer feignResponseBody = e.responseBody()
-                        .orElseThrow(() -> new RuntimeException("Response body is null"));
-                byte[] responseBodyBytes = new byte[feignResponseBody.remaining()];
-                feignResponseBody.get(responseBodyBytes);
-                ObjectMapper objectMapper = new ObjectMapper();
-                return objectMapper.readValue(responseBodyBytes, MyErrorDto.class);
-            } catch (Exception ex) {
-                throw new RuntimeException("Произошло что-то ужасное, но станет лучше, честно");
-            }
-        }
-
-        private String getAccountName (Update update){
-            String text = update.getMessage().getText();
-            String accountName = text.split(" ")[1];
-            if (accountName==null){
-                throw new IllegalArgumentException("Не указано имя аккаунта");
-            }
-            return text.split(" ")[1];
-        }
-
-        private String getResponseText (ResponseEntity < AccountDto > response) {
-            try {
-                int statusCode = response.getStatusCode().value();
-                if (statusCode == 201) {
-                    AccountDto body = response.getBody();
-                    if (body != null) {
-                        return "Счет успешно создан. Ваш счет: "
-                                + body.getId();
-                    }
-                }
-            } catch (Exception e) {
-                return "Произошло что-то ужасное, но станет лучше, честно";
-            }
-            return "Незадокументированный код ответа";
-        }
-
-        @NotNull
-        @Override
-        public Command getCommand () {
-            return Command.REGACCOUNT;
+    private static MyErrorDto getMyErrorDto(FeignException e) {
+        try {
+            ByteBuffer feignResponseBody = e.responseBody()
+                    .orElseThrow(() -> new RuntimeException("Response body is null"));
+            byte[] responseBodyBytes = new byte[feignResponseBody.remaining()];
+            feignResponseBody.get(responseBodyBytes);
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.readValue(responseBodyBytes, MyErrorDto.class);
+        } catch (Exception ex) {
+            throw new RuntimeException("Произошло что-то ужасное, но станет лучше, честно");
         }
     }
+
+    private String getAccountName(Update update) {
+        String text = update.getMessage().getText();
+        String accountName = text.split(" ")[1];
+        if (accountName == null) {
+            throw new IllegalArgumentException("Не указано имя аккаунта");
+        }
+        return text.split(" ")[1];
+    }
+
+    private String getResponseText(ResponseEntity<AccountDto> response) {
+        try {
+            int statusCode = response.getStatusCode().value();
+            if (statusCode == 201) {
+                AccountDto body = response.getBody();
+                if (body != null) {
+                    return "Счет успешно создан. Ваш счет: "
+                            + body.getId();
+                }
+            }
+        } catch (Exception e) {
+            return "Произошло что-то ужасное, но станет лучше, честно";
+        }
+        return "Незадокументированный код ответа";
+    }
+
+    @NotNull
+    @Override
+    public Command getCommand() {
+        return Command.REGACCOUNT;
+    }
+}
