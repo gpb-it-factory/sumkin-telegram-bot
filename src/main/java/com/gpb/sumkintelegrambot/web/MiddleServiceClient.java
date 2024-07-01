@@ -1,9 +1,6 @@
 package com.gpb.sumkintelegrambot.web;
 
-import com.gpb.sumkintelegrambot.web.dto.AccountDto;
-import com.gpb.sumkintelegrambot.web.dto.GetUserDto;
-import com.gpb.sumkintelegrambot.web.dto.RegisterTransferDto;
-import com.gpb.sumkintelegrambot.web.dto.RegisterUserDto;
+import com.gpb.sumkintelegrambot.web.dto.*;
 import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +17,11 @@ public interface MiddleServiceClient {
     @PostMapping(value = "/v2/users")
     ResponseEntity<GetUserDto> registerUser(@Valid @RequestBody RegisterUserDto registerUserDto);
 
-    @GetMapping("/v2/users/{id}")
-    ResponseEntity<GetUserDto> getUserById(@PathVariable Long id);
+    @GetMapping("/v2/users/{tgId}")
+    ResponseEntity<OnlyIdUserDto> getUserById(@PathVariable Long tgId);
 
-    @GetMapping("/v2/users/{tgUsername}")
-    ResponseEntity<GetUserDto> getUserByName(@PathVariable String tgUsername);
+    @GetMapping("/v2/users/tgName/{tgUsername}")
+    ResponseEntity<OnlyNameUserDto> getUserByName(@PathVariable String tgUsername);
 
     @PostMapping("/v2/users/{id}/accounts")
     ResponseEntity<AccountDto> registerAccount(@PathVariable Long id, @RequestBody String accountName);
