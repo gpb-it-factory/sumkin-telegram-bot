@@ -18,10 +18,10 @@ public interface MiddleServiceClient {
     ResponseEntity<GetUserDto> registerUser(@Valid @RequestBody RegisterUserDto registerUserDto);
 
     @GetMapping("/v2/users/{tgId}")
-    ResponseEntity<OnlyIdUserDto> getUserById(@PathVariable Long tgId);
+    ResponseEntity<GetUserDto> getUserById(@PathVariable Long tgId);
 
     @GetMapping("/v2/users/tgName/{tgUsername}")
-    ResponseEntity<OnlyNameUserDto> getUserByName(@PathVariable String tgUsername);
+    ResponseEntity<GetUserDto> getUserByName(@PathVariable String tgUsername);
 
     @PostMapping("/v2/users/{id}/accounts")
     ResponseEntity<AccountDto> registerAccount(@PathVariable Long id, @RequestBody String accountName);
