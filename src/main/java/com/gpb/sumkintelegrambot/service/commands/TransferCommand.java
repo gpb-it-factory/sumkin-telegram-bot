@@ -59,7 +59,7 @@ public class TransferCommand implements ICommand {
     private String getResponseText(ResponseEntity<UUID> response) {
         int statusCode = response.getStatusCode().value();
         return switch (statusCode) {
-            case 204 -> "Перевод совершен. id транзакции: " + response.getBody();
+            case 200 -> "Перевод совершен. id транзакции: " + response.getBody();
             default -> "Незадокументированный код ответа";
         };
     }

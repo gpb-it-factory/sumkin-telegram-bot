@@ -6,7 +6,7 @@ public enum Command {
     REGISTER("/register", "регистрация нового пользователя"),
     PING("/ping", "пришлет в ответ pong"),
     REGACCOUNT("/regaccount", "регистрация счета, формат: /regaccount название счета"),
-    TRANSFER("/transfer", "перевод средств, формат: /transfer получатель сумма");
+    TRANSFER("/transfer", "перевод средств, формат: /transfer сумма получатель");
 
     public final String name;
     public final String description;
