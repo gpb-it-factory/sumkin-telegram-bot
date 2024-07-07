@@ -16,7 +16,6 @@ import java.util.UUID;
 public class TransferCommand implements ICommand {
 
     private final MiddleServiceClient middleServiceClient;
-
     private BigDecimal amountBigDecimal;
 
     public TransferCommand(MiddleServiceClient middleServiceClient) {
@@ -47,20 +46,20 @@ public class TransferCommand implements ICommand {
     private RegisterTransferDto getTransferDto(Update update) {
         String text = update.getMessage().getText();
         String from = update.getMessage().getChat().getUserName();
-        String amount = text.substring(0, text.indexOf(" "));
+        String amount = text.split(" ")[1];
         try {
             amountBigDecimal = new BigDecimal(amount);
         } catch (NumberFormatException e) {
             System.out.println("Error: " + e.getMessage());
         }
-        String to = text.substring(text.indexOf(" ") + 1);
+        String to = text.split(" ")[2];
         return new RegisterTransferDto(from, to, amountBigDecimal);
     }
 
     private String getResponseText(ResponseEntity<UUID> response) {
         int statusCode = response.getStatusCode().value();
         return switch (statusCode) {
-            case 204 -> "Перевод совершен. id транзакции: " + response.getBody();
+            case 200 -> "Перевод совершен. id транзакции: " + response.getBody();
             default -> "Незадокументированный код ответа";
         };
     }

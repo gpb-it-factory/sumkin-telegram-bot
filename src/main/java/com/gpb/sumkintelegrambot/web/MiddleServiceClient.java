@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.List;
 import java.util.UUID;
 
 @FeignClient(name = "middleServiceClient", url = "${myMiddle.url}")
@@ -24,10 +23,11 @@ public interface MiddleServiceClient {
     ResponseEntity<GetUserDto> getUserByName(@PathVariable String tgUsername);
 
     @PostMapping("/v2/users/{id}/accounts")
-    ResponseEntity<AccountDto> registerAccount(@PathVariable Long id, @RequestBody String accountName);
+    ResponseEntity<AccountDto> registerAccount(@PathVariable Long id,
+                                               @Valid @RequestBody RegAccountDto regAccountDto);
 
     @GetMapping("/v2/users/{id}/accounts")
-    ResponseEntity<List<AccountDto>> getAccountsList(@PathVariable Long id);
+    ResponseEntity<AccountDto> getAccountsList(@PathVariable Long id);
 
     @PostMapping("/v2/transfers")
     ResponseEntity<UUID> registerTransfer(@Valid @RequestBody RegisterTransferDto registerTransferDto);
